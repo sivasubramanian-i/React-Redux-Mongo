@@ -135,14 +135,14 @@ class EditArticle extends Component {
             <div className="form-group">
               <label>Description</label>
               <textarea
-                name="body"
+                name="description"
                 style={{ height: "200px" }}
                 className="form-control"
                 onChange={this.handleInputChange}
-                defaultValue={this.props.article.body}
+                defaultValue={this.props.article.description}
               />
-              {this.state.errors.body !== "" && (
-                <ErrorMsg msg={this.state.errors.body} />
+              {this.state.errors.description !== "" && (
+                <ErrorMsg msg={this.state.errors.description} />
               )}
             </div>
 

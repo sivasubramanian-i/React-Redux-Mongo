@@ -34,10 +34,10 @@ class Article extends Component {
   render() {
     return (
       <li className="Article">
-        <strong className="m-4">{this.props.title}</strong> |
+        <strong className="m-4">{this.props.data.title}</strong> |
         <strong className="m-4">{this.props.data.author}</strong> |
-        <strong className="m-4">{this.props.data.body}</strong> |
-        <strong className="m-4">{this.props.data.addedOn}</strong>
+        <strong className="m-4">{this.props.data.amount}</strong> |
+        <strong className="m-4">{this.props.data.createdAt}</strong>
         {this.props.isAuthenticated && (
           <button
             className="btn btn-danger"

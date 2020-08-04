@@ -2,32 +2,29 @@ import db from "../config/db";
 
 const transactionSchema = new db.mongoose.Schema(
   {
+    
+    authorId: {
+      type: db.mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User"
+    },
     title: {
       type: String,
       required: true
     },
     author: {
       type: String,
-      required: true
+      default: null
     },
-    authorId: {
-      type: db.mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User"
-    },
-    body: {
+    description: {
       type: String,
-      required: true
+      default: null
     },
     amount: {
       type: Number,
       default: 0
     },
-    addedOn: {
-      type: Date,
-      default: Date.now,
-      required: true
-    },
+    
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   },

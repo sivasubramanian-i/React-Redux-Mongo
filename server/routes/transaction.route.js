@@ -4,20 +4,16 @@ import transactionModel from "../models/transactionModel";
 import config from "../config/config";
 let router = express.Router();
 
-const checkForErrors = ({ title, author, body }) => {
+const checkForErrors = ({ title, amount }) => {
   let errors = {};
   let isValid = false;
   if (title === "") {
     console.log(title, "title=======");
     errors = { ...errors, title: "This field is required" };
   }
-  if (author === "") {
-    console.log(author, "author=======");
-    errors = { ...errors, author: "This field is required" };
-  }
-  if (body === "") {
-    console.log(body, "body=======");
-    errors = { ...errors, body: "This field is required" };
+  if (amount === "") {
+    console.log(amount, "amount=======");
+    errors = { ...errors, amount: "This field is required" };
   }
 
   if (Object.keys(errors).length > 0) {
@@ -62,11 +58,11 @@ router.get("/report", (req, res) => {
   if (req.query.date) {
     transactionModel
       .aggregate([
-        { $match: { addedOn: { $gte: new Date(req.query.date) } } },
+        { $match: { createdAt: { $gte: new Date(req.query.date) } } },
         {
           $group: {
             _id: {
-              author: "$author"
+              title: "$title"
             },
             totalAmount: { $sum: "$amount" },
             count: { $sum: 1 }
@@ -93,18 +89,18 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/add", isAuthenticated, (req, res) => {
-  const { title, author, body, amount } = req.body;
+  const { title, author, description, amount } = req.body;
   const authorId = req.authorId;
 
-  const { isValid, errors } = checkForErrors({ title, author, body, amount });
+  const { isValid, errors } = checkForErrors({ title, amount });
 
   if (isValid) {
     const newData = new transactionModel({
       title: title,
-      author: author,
-      body: body,
+      description: description,
       amount: amount,
-      authorId: authorId
+      authorId:authorId,
+      author: author
     });
 
     newData.save(err => {
@@ -121,7 +117,7 @@ router.post("/add", isAuthenticated, (req, res) => {
 router.post("/edit/:id", isAuthenticated, (req, res) => {
   const { title, author, body, amount, authorId } = req.body;
 
-  const { isValid, errors } = checkForErrors({ title, author, body, amount });
+  const { isValid, errors } = checkForErrors({ title, amount });
 
   if (isValid) {
     transactionModel.findByIdAndUpdate(req.params.id, req.body, err => {

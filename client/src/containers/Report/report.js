@@ -51,10 +51,10 @@ class Report extends Component {
           <div className="col-md-12 text-center">
             {this.props.report &&
               this.props.report.map(data => (
-                <div className="p-4 m-4 list-box" key={data._id.author}>
+                <div className="p-4 m-4 list-box" key={data._id.title}>
                   <span>
                     {" "}
-                    Author : <strong>{data._id.author}</strong> ,{" "}
+                    Author : <strong>{data._id.title}</strong> ,{" "}
                   </span>{" "}
                   <span>
                     {" "}

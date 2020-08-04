@@ -8,11 +8,6 @@ import {
 import ErrorMsg from "../../../components/ErrorMsg/ErrorMsg";
 import InputField from "../../../components/InputField/InputField";
 
-let fieldsArray = [
-  { name: "title", type: "text", label: "SHOP NAME" },
-  { name: "author", type: "text", label: "NAME", disabled: "disabled" }
-];
-
 class AddArticle extends Component {
   state = {
     article: {},
@@ -115,12 +110,12 @@ class AddArticle extends Component {
         <div className="jumbotron">
           <form onSubmit={this.handleNewArticleSubmit}>
             <InputField
-              key={fieldsArray[1].name}
-              type={fieldsArray[1].type}
-              name={fieldsArray[1].name}
-              label={fieldsArray[1].label}
+              key="author"
+              type="text"
+              name="author"
+              label="Author"
               defaultValue={this.props.authenticatedUsername}
-              disabled={fieldsArray[1].disabled}
+              disabled="disabled"
               errors={this.state.errors}
               onChange={this.handleInputChange}
             />
@@ -160,15 +155,15 @@ class AddArticle extends Component {
             <div className="form-group">
               <label>Description</label>
               <textarea
-                name="body"
+                name="description"
                 style={{ height: "200px" }}
                 className="form-control"
-                placeholder="Fill your status"
+                placeholder="Description"
                 onChange={this.handleInputChange}
                 defaultValue={this.state.article.body}
               />
-              {this.state.errors.body !== "" && (
-                <ErrorMsg msg={this.state.errors.body} />
+              {this.state.errors.description !== "" && (
+                <ErrorMsg msg={this.state.errors.description} />
               )}
             </div>
             <NavLink
